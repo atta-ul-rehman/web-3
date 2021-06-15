@@ -25,7 +25,7 @@ $(function()
   var country=$("#country").val();
   console.log(number1);
   $.ajax({
-    url: "http://localhost/api/products/" + id,
+    url: ul + id,
     method: "PUT",
     data: JSON.stringify({name,email,gender,street,city,country,number1}),
     dataType: "json",
@@ -43,6 +43,8 @@ $(function()
 
 });
 });
+var ul = "https://79b19f431234.ngrok.io/api/products/";
+
 //delete function
 function Del() {
   var btn = $(this);
@@ -50,7 +52,7 @@ function Del() {
   let id = parentDiv.attr("data-id");
   console.log(id);
   $.ajax({
-    url: "http://localhost/api/products/"+id,
+    url: ul +id,
     method: "DELETE",
     success: function() {
       load();
@@ -69,7 +71,7 @@ function add() {
   var country=$("#country").val();
   console.log(number1);
   $.ajax({
-    url: "http://localhost/api/products",
+    url: "https://79b19f431234.ngrok.io/api/products",
     method: "POST",
     data: JSON.stringify({name,email,gender,street,city,country,number1}),
     dataType: "json",
@@ -102,7 +104,7 @@ function handleUpdate() {
   var btn = $(this);
   var parentDiv = btn.closest(".resc");
   let id = parentDiv.attr("data-id");
-  $.get("http://localhost/api/products/" + id, function(
+  $.get(ul + id, function(
     response
   ) {
     $("#_id").val(response.id);
@@ -120,14 +122,19 @@ function handleUpdate() {
 // GET function
 function load()
 {
-  $.getJSON('http://localhost/api/products').done(function(data) {
-  console.log(data);
+  $.ajax({
+    url: "https://79b19f431234.ngrok.io/api/products",
+    method: "GET",
+    dataType: "json",
+    contentType: "application/json",
+    success: function(response){
   var inp=$("#input")      
   inp.empty();
-  for(var i=0;i<data.length;i++)
+  for(var i=0;i<response.length;i++)
     {
-      var res=data[i];
+      var res=response[i];
      inp.append("<div class=resc data-id="+res.id+"><h1>"+res.id+"  "+res.name+"</h1><h3>"+res.email+" Gender:"+res.gender+"   "+res.number1+"</h3><h3>ADDRESS: "+res.Address.street+ " "+res.Address.city+ " "+res.Address.country+" <br><button class=del >DELETE</button>"+" "+"<button class=edit> EDIT</button></div>");
-    } 
+    }
+  }
     });
-}    
+  }  
