@@ -43,7 +43,7 @@ $(function()
 
 });
 });
-var ul = "https://79b19f431234.ngrok.io/api/products/";
+var ul = "http://localhost/api/products";
 
 //delete function
 function Del() {
@@ -71,7 +71,7 @@ function add() {
   var country=$("#country").val();
   console.log(number1);
   $.ajax({
-    url: "https://79b19f431234.ngrok.io/api/products",
+    url: "http://localhost/api/products",
     method: "POST",
     data: JSON.stringify({name,email,gender,street,city,country,number1}),
     dataType: "json",
@@ -123,7 +123,7 @@ function handleUpdate() {
 function load()
 {
   $.ajax({
-    url: "https://79b19f431234.ngrok.io/api/products",
+    url: "http://localhost/api/products",
     method: "GET",
     dataType: "json",
     contentType: "application/json",
