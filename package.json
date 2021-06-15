@@ -2,12 +2,15 @@
   "name": "web-assg-3",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-  "keywords": [],
+  "engines":{
+    "node" : "14.17.0"
+  },
+  "keywords": ["node","express"],
   "author": "",
   "license": "ISC",
   "dependencies": {
