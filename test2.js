@@ -1,5 +1,6 @@
 $(function()
 {
+  load();
   $("#input").on("click",".edit",handleUpdate);
   $("#input").on("click",".del",Del);
   $("#addbtn").click(add);
