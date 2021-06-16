@@ -6,17 +6,17 @@ const cors = require('cors');
 
 app.use(express.json());
 const products = [
-{id:1,number1:1234,name:"atta",email:"abc@gmial.com",gender:"m",number2: 1234 ,Address:
+{id:1,number1:1234,name:"atta",email:"abc@gmial.com",gender:"m",number2: "1234" ,Address:
   {
   street:"n1",city:"lhr",country:"pak"
   }
 },
-{id:2,number1:12234,name:"lila",email:"abc@gmial.com",gender:"f",number2: 1234,Address:
+{id:2,number1:12234,name:"lila",email:"abc@gmial.com",gender:"f",number2: "1234",Address:
   {
   street:"n1",city:"lhr",country:"pak"
   }
 },
-{id:3,number2:122234,name:"atta",email:"abc@gmial.com",gender:"m",number2:1234,Address:
+{id:3,number1:122234,name:"atta",email:"abc@gmial.com",gender:"m",number2:"1234",Address:
   {
   street:"n1",city:"lhr",country:"pak"
   }
@@ -56,13 +56,14 @@ app.put("/api/products/:id", function (req, res) {
      res.status(400).send(error.details[0].message);
      return;
     }
-  prod.number1=req.body.number1;
-  prod.name=req.body.name;
-  prod.email=req.body.email;
-  prod.gender=req.body.gender;
-  prod.Address["street"]=req.body.street;
-  prod.Address["city"]=req.body.city;
-  prod.Address["country"]= req.body.country;
+  prod.number1=req.body.number1 ;
+  prod.name=req.body.name ;
+  prod.email=req.body.email ;
+  prod.gender=req.body.gender ;
+  prod.number2=req.body.number2 || null;
+  prod.Address["street"]=req.body.street ;
+  prod.Address["city"]=req.body.city ;
+  prod.Address["country"]= req.body.country ;
   res.send(prod);
 });
 //delete one resource
@@ -76,6 +77,7 @@ app.delete("/api/products/:id", function (req, res) {
 //create one resource
 app.post("/api/products", function (req, res) {
     const {error} =valide(req.body);
+    valide(req.body);
     if(error)
     {
      res.status(400).send(error.details[0].message);
@@ -89,14 +91,15 @@ app.post("/api/products", function (req, res) {
   const prod ={
     id: products.length + 1,
     number1 :req.body.number1,
-    name: req.body.name,
-    email : req.body.email,
-    gender : req.body.gender,
+    name: req.body.name ,
+    email : req.body.email ,
+    gender : req.body.gender ,
+    number2 :req.body.number2 || null,
     Address :
     {
-      street:req.body.street,
-      city: req.body.city,
-      country: req.body.country,
+      street:req.body.street ,
+      city: req.body.city ,
+      country: req.body.country ,
     }
   };
   products.push(prod);
@@ -107,10 +110,11 @@ function valide(prod)
 {
 const schema =joi.object({
   id :joi.number().integer(),
-  number1 : joi.string(),
-  name : joi.string().min(3).required(),
-  email : joi.string().email(),
-  gender : joi.string().valid("M", "F").insensitive().required(),
+  number1 : joi.number(),
+  number2 :joi.string(),
+  name : joi.string().min(3),
+  email : joi.string(),
+  gender : joi.string().valid("M", "F").insensitive(),
   street : joi.string(),
   city : joi.string(),
   country : joi.string()
