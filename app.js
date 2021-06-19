@@ -3,6 +3,23 @@ const express = require("express");
 const joi = require("joi");
 const app = express();
 const cors = require('cors');
+var port = normalizePort(process.env.PORT || '80');
+http = require('http');
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
 
 app.use(express.json());
 const products = [
@@ -121,4 +138,4 @@ const schema =joi.object({
 });
 return schema.validate(prod);
 }
-app.listen(80);
+http.createServer(app).listen(port);
