@@ -2,7 +2,8 @@ console.clear()
 const express = require("express");
 const joi = require("joi");
 const app = express();
-const cors = require("cors");
+const cors = require('cors');
+app.use(cors());
 
 var port = normalizePort(process.env.PORT || '3000');
 http = require('http');
@@ -48,8 +49,6 @@ const products = [
 },
 
 ];
-
-app.use(cors());
 
 app.get("/", function (req, res) {
   res.send("Hello World");
@@ -146,4 +145,4 @@ const schema =joi.object({
 });
 return schema.validate(prod);
 }
-http.createServer(app).listen(port);
+app.listen(port);
