@@ -142,7 +142,7 @@ function load()
     for(var i=0;i<data.length;i++)
     {
         var res=data[i];
-    inp.append("<div class=resc data-id=" +res.id+"><h3>"+res.name+res.email+res.gender+ "</h3><button class=btn>DELETE</button><p>"+res.title+"</p></div>");
+    inp.append("<div class=resc data-id=" +res.id+"><h3>"+res.name+res.email+res.gender+ "</h3><button class=btn>DELETE</button></div>");
     }
     });
   }  

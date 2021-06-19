@@ -7,13 +7,7 @@ app.use(cors());
 
 var port = normalizePort(process.env.PORT || '3000');
 http = require('http');
-app.use(function (req, res, next) {
-  //Enabling CORS
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type,Accept, x-client-key, x-client-token, x-client-secret, Authorization");
-    next();
-  });
+
 function normalizePort(val) {
 var port = parseInt(val, 10);
 
