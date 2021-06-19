@@ -49,7 +49,7 @@ else{
 
 });
 });
-var ul = "http://localhost/api/products/";
+var ul = "http://localhost:3000/api/products/";
 
 //delete function
 function Del() {
@@ -78,7 +78,7 @@ function add() {
   var country=$("#country").val() ;
   console.log(number1);
   $.ajax({
-    url: "http://localhost/api/products",
+    url: "http://localhost:3000/api/products",
     method: "POST",
     data: JSON.stringify({name,email,gender,street,city,country,number1,number2}),
     dataType: "json",
@@ -134,19 +134,15 @@ function handleUpdate() {
 // GET function
 function load()
 {
-  $.ajax({
-    url: "http://localhost/api/products",
-    method: "GET",
-    dataType: "json",
-    contentType: "application/json",
-    success: function(response){
-  var inp=$("#input")      
-  inp.empty();
-  for(var i=0;i<response.length;i++)
+  $.getJSON('http://localhost:3000/api/products').done(function(data) {
+    console.log(data);
+    var inp=$("#input");
+  
+    inp.empty();
+    for(var i=0;i<data.length;i++)
     {
-      var res=response[i];
-     inp.append("<div class=resc data-id="+res.id+"><h1>"+res.id+"  "+res.name+"</h1><h3>"+res.email+" Gender:"+res.gender+"   "+res.number1+" "+res.number2+"</h3><h3>ADDRESS: "+res.Address.street+ " "+res.Address.city+ " "+res.Address.country+" <br><button class=del >DELETE</button>"+" "+"<button class=edit> EDIT</button></div>");
+        var res=data[i];
+    inp.append("<div class=resc data-id=" +res.id+"><h3>"+res.name+res.email+res.gender+ "</h3><button class=btn>DELETE</button><p>"+res.title+"</p></div>");
     }
-  }
     });
   }  
