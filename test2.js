@@ -134,15 +134,19 @@ function handleUpdate() {
 // GET function
 function load()
 {
-  $.getJSON('http://localhost:3000/api/products').done(function(data) {
-    console.log(data);
-    var inp=$("#input");
-  
-    inp.empty();
-    for(var i=0;i<data.length;i++)
+  $.ajax({
+    url: "http://localhost:3000/api/products",
+    method: "GET",
+    dataType: "json",
+    contentType: "application/json",
+    success: function(response){
+  var inp=$("#input")      
+  inp.empty();
+  for(var i=0;i<response.length;i++)
     {
-        var res=data[i];
-    inp.append("<div class=resc data-id=" +res.id+"><h3>"+res.name+res.email+res.gender+ "</h3><button class=btn>DELETE</button></div>");
+      var res=response[i];
+     inp.append("<div class=resc data-id="+res.id+"><h1>"+res.id+"  "+res.name+"</h1><h3>"+res.email+" Gender:"+res.gender+"   "+res.number1+" "+res.number2+"</h3><h3>ADDRESS: "+res.Address.street+ " "+res.Address.city+ " "+res.Address.country+" <br><button class=del >DELETE</button>"+" "+"<button class=edit> EDIT</button></div>");
     }
+  }
     });
   }  

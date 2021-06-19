@@ -2,12 +2,18 @@ console.clear()
 const express = require("express");
 const joi = require("joi");
 const app = express();
-const cors = require('cors');
+const cors = require("cors");
 app.use(cors());
 
 var port = normalizePort(process.env.PORT || '3000');
 http = require('http');
-
+app.use(function (req, res, next) {
+  //Enabling CORS
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type,Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+    next();
+  });
 function normalizePort(val) {
 var port = parseInt(val, 10);
 
@@ -139,4 +145,4 @@ const schema =joi.object({
 });
 return schema.validate(prod);
 }
-app.listen(port);
+http.createServer(app).listen(port);
