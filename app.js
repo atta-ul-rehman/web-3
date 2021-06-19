@@ -3,10 +3,13 @@ const express = require("express");
 const joi = require("joi");
 const app = express();
 const cors = require("cors");
+
 app.use(cors());
 
 var port = normalizePort(process.env.PORT || '3000');
 http = require('http');
+app.set('port', port);
+
 app.use(function (req, res, next) {
   //Enabling CORS
   res.header("Access-Control-Allow-Origin", "*");
@@ -145,4 +148,13 @@ const schema =joi.object({
 });
 return schema.validate(prod);
 }
-http.createServer(app).listen(port);
+server = http.createServer(app);
+server.on('listening', onListening);
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  console.log('Listening on ' + bind);
+}
+server.listen(port);
